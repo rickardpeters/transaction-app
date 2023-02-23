@@ -14,8 +14,8 @@ export default function CarListItem(props) {
                         borderRadius: "3%", color:"white"}}>
             <h3>{car.Name}</h3>
           </div>
-            <h4>{car.Color}</h4>
-            <p>Price: {car.Price}</p>
+            <h4 style={{marginTop:"20px"}}>{car.Color}</h4>
+            <p style={{padding:"15px"}}>Price: {car.Price}</p>
         </div>
     )
 }

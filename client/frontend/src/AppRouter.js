@@ -1,21 +1,25 @@
 import React from "react";
-import { BrowseRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import StartPage from "./StartPage";
-import App from "./App";
-
+import CarPage from "./CarPage";
+import AddPage from "./AddPage";
 
 function AppRouter() {
     return (
-        <BrowseRouter>
+        <BrowserRouter>
             <Routes>
                 <Route path="/home" element={
-                    <App />
+                    <StartPage />
                 } />
-                <Route path="" element={{}} />
-                <Route path="" element={{}} />
+                <Route path="/cars" element={
+                    <CarPage />
+                } />
+                <Route path="/add" element={
+                    <AddPage />
+                } />
             </Routes>
-        </BrowseRouter>
+        </BrowserRouter>
     )
 }
 

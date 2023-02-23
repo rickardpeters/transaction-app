@@ -27,17 +27,17 @@ export default function CarList() {
     const [loading, setLoading] = useState(false)
     const [cars, setCars] = useState([])
 
-    const fetchData = async () => {
-        setLoading(true)
-
-        const res = await getCars()
-
-        setCars([...res])
-        setLoading(false)
-    }
-
     useEffect(() => {
-        fetchData()
+        const fetchData = async () => {
+            setLoading(true)
+
+            const res = await getCars()
+
+            setCars([...res])
+            setLoading(false)
+    }
+    fetchData()
+        
     }, [])
 
     return (
@@ -47,7 +47,7 @@ export default function CarList() {
             </header>
 
             { loading && 
-                <p>loading...</p>
+                <h3 style={{fontFamily: "Tilt Warp", textAlign: "center", fontSize: "30px"}}>loading...</h3>
             }
 
             <ul style={{textAlign:"center", margin:"0", padding: "0"}}>
