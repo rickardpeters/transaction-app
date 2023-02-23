@@ -6,12 +6,12 @@ export default function CarListItem(props) {
         <div key={car.Name} style={{background:"white", width:"300px",
                                     justifyContent:"center", alignItems:"center",
                                     position:"relative", borderRadius: "3%", margin: "auto",
-                                    fontFamily: "Exo 2", fontWeight: "Medium 500",
+                                    fontFamily: "'Exo 2', sans-serif", fontWeight: "Medium 500",
                                     boxShadow: "1px 1px 5px #000000"}}>
-          <div style={{border: "1px solid", width: "auto", height: "auto",
+          <div style={{border: "1px solid #111D4A", width: "auto", height: "auto",
                         justifyContent: "center", alignContent: "center",
-                        background:"#317773", position: "relative", textAlign: "center",
-                        borderRadius: "3%", color:"#212121"}}>
+                        background:"#111D4A", position: "relative", textAlign: "center",
+                        borderRadius: "3%", color:"white"}}>
             <h3>{car.Name}</h3>
           </div>
             <h4>{car.Color}</h4>
