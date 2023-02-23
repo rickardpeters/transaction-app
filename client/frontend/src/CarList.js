@@ -55,6 +55,7 @@ export default function CarList() {
                     <CarListItem car={car}/>
                 ))}
             </ul>
+            <br></br>
         </section>
     )
 }
