@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getDocs, collection, getFirestore } from 'firebase/firestore'
-
+import { getDocs, collection, getFirestore, setDoc, doc } from 'firebase/firestore'
+import Navbar from "./Navbar"
+import CarList from './CarList';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -19,22 +20,23 @@ const firebaseConfig = {
   measurementId: "G-VP13PLMB5S"
 };
 
-const firebase = initializeApp(firebaseConfig)
+const firebase = initializeApp(firebaseConfig);
 
+const db = getFirestore(firebase);
 
 const App = () => {
 
 
-    const collection_name = "cars"
+  const collection_name = "cars"
 
     const getCars = async () => {
-      const doc_refs = await getDocs(collection(getFirestore(firebase), collection_name))
+      const doc_refs = await getDocs(collection(db, collection_name))
 
       const res = []
 
       doc_refs.forEach(car => {
         res.push({
-          id: car.id,
+          name: car.Name,
         ...car.data()
       
       })
@@ -42,58 +44,38 @@ const App = () => {
       return res
     }
 
-    function CarListItem(props) {
-      const { car } = props
   
+
+  function CarListItem(props) {
+      const { car } = props
+      
       return (
-          <li key={car.name}>
-              <h3>{car.name} {car.color} </h3>
-              <p>Price: {car.price}</p>
-          </li>
+
+          <div key={car.Name} style={{background:"white", width:"300px",
+                                      justifyContent:"center", alignItems:"center",
+                                      position:"relative", borderRadius: "3%", margin: "auto",
+                                      fontFamily: "Exo 2", fontWeight: "Medium 500",
+                                      boxShadow: "1px 1px 5px #000000"}}>
+            <div style={{border: "1px solid", width: "auto", height: "auto",
+                          justifyContent: "center", alignContent: "center",
+                          background:"#317773", position: "relative", textAlign: "center",
+                          borderRadius: "3%", color:"#212121"}}>
+              <h3>{car.Name}</h3>
+            </div>
+              <h4>{car.Color}</h4>
+              <p>Price: {car.Price}</p>
+          </div>
       )
-  }
-
-  function CarList() {
-    const [loading, setLoading] = useState(false)
-    const [cars, setCars] = useState([])
-
-    const fetchData = async () => {
-        setLoading(true)
-
-        const res = await getCars()
-
-        setCars([...res])
-        setLoading(false)
-    }
-
-    useEffect(() => {
-        fetchData()
-    }, [])
-
-    return (
-        <section>
-            <header>
-                <h2>Cars</h2>
-            </header>
-
-            { loading && 
-                <p>loading...</p>
-            }
-
-            <ul>
-                {cars.length > 0 && cars.map(car => (
-                    <CarListItem car={car}/>
-                ))}
-            </ul>
-        </section>
-    )
 }
 
 
-   
+
     return (
+    
     <div className='App'>
+      <Navbar />
       <CarList />
+      
     </div>
     );
   
