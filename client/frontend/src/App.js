@@ -1,108 +1,104 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getDocs, collection, getFirestore } from 'firebase/firestore'
 
 
-const items = [
-  {
-    id: 1,
-    title: 'Pannlampa',
-    description: 'En lampa man har på pannan'
-  },
-  {
-    id: 2,
-    title: 'Ficklampa',
-    description: 'En lampa man kan ha i fickan'
-  },
-  {
-    id: 3,
-    title: 'Nattlampa',
-    description: 'En lampa man kan ha på natten'
-  }
-]
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-const cardStyles = {
-  container: {
-    display: "flex",
-    height: 100,
-    width: 400,
-    boxShadow: "0 0 3px 2px #cec7c759",
-    alignItems: "center",
-    padding: 20,
-    borderRadius: 20,
-    flexDirection: "column"
-  },
-  profilePicture: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "pink",
-    color: "white",
-    height: 20,
-    width: 300,
-    borderRadius: "45%",
-    padding: 10,
-    fontWeight: "bold",
-  },
-  bio: {
-    marginLeft: 10,
-    display: "flex",
-    alignItems: ""
-  },
-  userName: {
-    fontWeight: "bold",
-  },
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCQNJ6rNQ-bueIIG-rRwKCNsu4kgkdLI6g",
+  authDomain: "webshop-rp.firebaseapp.com",
+  projectId: "webshop-rp",
+  storageBucket: "webshop-rp.appspot.com",
+  messagingSenderId: "686116047451",
+  appId: "1:686116047451:web:d4b5afd680c4cab695cd7e",
+  measurementId: "G-VP13PLMB5S"
 };
 
-const searchBarStyle = {
-  bar : {
-    height: "40px",
-    width: "30%",
-    display: "flex",
-    position: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative"
-}
-}
-
-const Item = ({title, description}) => {
-  return (
-    <div style={cardStyles.container}>
-      <h2 style={cardStyles.profilePicture}>{title}</h2>
-      <p style={cardStyles.bio}>{description}</p>
-    </div>
-  );
-};
+const firebase = initializeApp(firebaseConfig)
 
 
 const App = () => {
 
-  const [currentItem, setCurrentItem] = useState(items[0]);
-  const [searchQuery, setSearchQuery] = useState('');
 
+    const collection_name = "cars"
 
-  const handleInputChange = (event) => {
-    setSearchQuery(event.target.value)
-    const filteredItems = items.filter((item) =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    if (filteredItems.length > 0) {
-      const randomIndex = Math.floor(Math.random() * filteredItems.length);
-      setCurrentItem(filteredItems[randomIndex]);
-    } else {
-      setCurrentItem(null);
+    const getCars = async () => {
+      const doc_refs = await getDocs(collection(getFirestore(firebase), collection_name))
+
+      const res = []
+
+      doc_refs.forEach(car => {
+        res.push({
+          id: car.id,
+        ...car.data()
+      
+      })
+      })
+      return res
     }
+
+    function CarListItem(props) {
+      const { car } = props
+  
+      return (
+          <li key={car.name}>
+              <h3>{car.name} {car.color} </h3>
+              <p>Price: {car.price}</p>
+          </li>
+      )
   }
 
+  function CarList() {
+    const [loading, setLoading] = useState(false)
+    const [cars, setCars] = useState([])
 
-  return (
-    <div>
-      <input style={searchBarStyle.bar} type="text" placeholder='Search by title' value={searchQuery} onChange={handleInputChange} />
-      {currentItem && <Item title={currentItem.title} description={currentItem.description} />}
+    const fetchData = async () => {
+        setLoading(true)
+
+        const res = await getCars()
+
+        setCars([...res])
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    return (
+        <section>
+            <header>
+                <h2>Cars</h2>
+            </header>
+
+            { loading && 
+                <p>loading...</p>
+            }
+
+            <ul>
+                {cars.length > 0 && cars.map(car => (
+                    <CarListItem car={car}/>
+                ))}
+            </ul>
+        </section>
+    )
+}
+
+
+   
+    return (
+    <div className='App'>
+      <CarList />
     </div>
-  );
-};
-
-
+    );
+  
+}
+   
 
 
 export default App;
