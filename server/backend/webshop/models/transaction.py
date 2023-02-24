@@ -19,6 +19,3 @@ class Transaction(models.Model):
         return (str(self.date) + " - " + str(self.amount) +
                 "st. " + self.storage.article.name + " - " +
                 self.operation)
-
-    def get_value(self):
-        return self.storage.article.price * self.amount

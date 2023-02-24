@@ -42,11 +42,15 @@ class StorageManagementService():
         elif operation == "Withdraw":
             new_amount = storage.amount - amount
 
-        Storage.objects.filter(id=id).update(amount=new_amount)
+        print(f'New amount: {new_amount}')
+        storage.amount = new_amount
+        print(
+            f'New amount on the storage: {storage.amount}')
 
         new_transaction = Transaction.objects.create(
             storage=storage, amount=amount, operation="Deposit"
         )
+        new_transaction.save()
         return new_transaction
 
     def get_all_storages(self) -> dict:
