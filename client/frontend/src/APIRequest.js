@@ -15,7 +15,7 @@ export const apiRequest = async(path, method, requestBody) => {
     }
 
     if (method === 'POST') {
-        const res = await fetch(`${HOST}${path}`, {
+        const res = await fetch (`${HOST}${path}`, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json'

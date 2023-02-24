@@ -37,7 +37,7 @@ class StorageAll(APIView):
         self.storage_management_service: StorageManagementService = (
             _deps['StorageManagementService']())
 
-    def get(self):
+    def get(self, request):
 
         all_storages = self.storage_management_service.get_all_storages()
         if all_storages is None:
@@ -91,15 +91,16 @@ class Transactions(APIView):
         self.storage_management_service: StorageManagementService = (
             _deps['StorageManagementService']())
 
-    def get(self, id):
+        def get(self, id):
 
-        all_transactions = self.storage_management_service.get_all_transactions()
-        if all_transactions is None:
-            return JsonResponse("No transaction found", safe=False, status=404)
-        serialized_data = TransactionSerializer(all_transactions, many=True)
-        if serialized_data.is_valid:
-            return JsonResponse(serialized_data.data, safe=False, status=200)
-        return Response("Serialization failed", status=400)
+            all_transactions = self.storage_management_service.get_all_transactions()
+            if all_transactions is None:
+                return JsonResponse("No transaction found", safe=False, status=404)
+            serialized_data = TransactionSerializer(
+                all_transactions, many=True)
+            if serialized_data.is_valid:
+                return JsonResponse(serialized_data.data, safe=False, status=200)
+            return Response("Serialization failed", status=400)
 
 
 class TransactionsAll(APIView):
@@ -110,14 +111,13 @@ class TransactionsAll(APIView):
 
     def get(self, request):
 
-        if request.method == 'GET':
-            all_storages = self.storage_management_service.get_all_storages()
-            if all_storages is None:
-                return JsonResponse("No storage found", safe=False, status=404)
-            serialized_data = StorageSerializer(all_storages, many=True)
-            if serialized_data.is_valid:
-                return JsonResponse(serialized_data.data, safe=False, status=200)
-            return Response("Serialization failed", status=400)
+        all_transactions = self.storage_management_service.get_all_transactions()
+        if all_transactions is None:
+            return JsonResponse("No transaction found", safe=False, status=404)
+        serialized_data = TransactionSerializer(all_transactions, many=True)
+        if serialized_data.is_valid:
+            return JsonResponse(serialized_data.data, safe=False, status=200)
+        return Response("Serialization failed", status=400)
 
     def post(self, request):
 

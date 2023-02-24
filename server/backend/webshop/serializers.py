@@ -39,6 +39,7 @@ class CitySerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
 
     storage = StorageSerializer(read_only=True)
+    date = serializers.DateField(read_only=True)
 
     class Meta:
         model = Transaction
