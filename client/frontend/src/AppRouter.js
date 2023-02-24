@@ -5,6 +5,7 @@ import StartPage from "./StartPage";
 import CarPage from "./CarPage";
 import AddPage from "./AddPage";
 import CartPage from "./CartPage";
+import StoragePage from "./StoragePage";
 
 function AppRouter() {
     return (
@@ -21,6 +22,9 @@ function AppRouter() {
                 } />
                 <Route path="/cart" element={
                     <CartPage />
+                } />
+                <Route path="/storage" element={
+                    <StoragePage />
                 } />
             </Routes>
         </BrowserRouter>

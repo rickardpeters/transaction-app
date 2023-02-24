@@ -3,6 +3,7 @@ from .__init__ import dataAccessInjector as di
 from .models.storage import Storage
 from .models.article import Article
 from .models.city import City
+from .models.transaction import Transaction
 
 
 @di.register(name="StorageAccess")
@@ -22,6 +23,22 @@ class StorageAccess():
             return storage_amount
         except Exception:
             None
+
+    def get_all_storages(self) -> dict:
+        try:
+            return Storage.objects.all()
+        except Exception:
+            return None
+
+
+@di.register(name="TransactionAccess")
+class TransactionAccess():
+
+    def get_all_transactions(self) -> dict:
+        try:
+            return Transaction.objects.all()
+        except Exception:
+            return None
 
 
 @di.register(name="ArticleAccess")

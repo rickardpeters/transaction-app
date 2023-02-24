@@ -4,6 +4,7 @@ from .__init__ import dataAccessInjector as di
 from .access import StorageAccess
 from .access import ArticleAccess
 from .access import CityAccess
+from .access import TransactionAccess
 
 from .models.storage import Storage
 from .models.article import Article
@@ -22,6 +23,8 @@ class StorageManagementService():
     def __init__(self, _deps, *args):
         self.storage_access: StorageAccess = _deps["StorageAccess"]()
         self.city_access: CityAccess = _deps["CityAccess"]()
+        self.transaction_access: TransactionAccess = _deps["TransactionAccess"](
+        )
 
     def get_storage(self, id) -> Storage:
 
@@ -45,3 +48,9 @@ class StorageManagementService():
             storage=storage, amount=amount, operation="Deposit"
         )
         return new_transaction
+
+    def get_all_storages(self) -> dict:
+        return self.storage_access.get_all_storages()
+
+    def get_all_transactions(self) -> dict:
+        return self.transaction_access.get_all_transactions()

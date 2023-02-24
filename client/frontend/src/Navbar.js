@@ -26,7 +26,9 @@ export default function Navbar() {
               <a style={{textDecoration: "none", color: "white"}} href="http://localhost:3000/cars">Cars</a></h1>
             <h1 style={navbarItemStyle}>
               <a style={{textDecoration: "none", color: "white"}} href="http://localhost:3000/add">Add</a></h1>
-            <a href="http://localhost:3000/cart">
+            <h1 style={navbarItemStyle}>
+              <a style={{textDecoration: "none", color: "white"}} href="http://localhost:3000/storage">Storages</a></h1>
+            <a href="http://localhost:3000/storage">
             <img src={cartLogo} alt="" style={{height: "50px", marginInline:"10px", right: "10px"}}/>
             </a>
           </header>
