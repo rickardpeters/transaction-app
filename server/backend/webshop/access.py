@@ -9,9 +9,10 @@ from .models.transaction import Transaction
 @di.register(name="StorageAccess")
 class StorageAccess():
 
-    def get_storage(self, id) -> Storage:
+    def get_storage(self, city, article) -> Storage:
 
-        storage = Storage.objects.get(id=id)
+        city = int(city)
+        storage = Storage.objects.get(city=city, article=article)
         return storage
 
     def set_storage(self, city: str, article: str, amount) -> int:

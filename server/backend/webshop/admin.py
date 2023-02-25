@@ -23,5 +23,5 @@ class ArticleInline(admin.StackedInline):
     model = Article
 
 
-class TransactionInline(admin.StackedInline):
+class TransactionInline(admin.TabularInline):
     model = Transaction

@@ -26,30 +26,34 @@ class StorageManagementService():
         self.transaction_access: TransactionAccess = _deps["TransactionAccess"](
         )
 
-    def get_storage(self, id) -> Storage:
+    def get_storage(self, city, article) -> Storage:
 
-        return self.storage_access.get_storage(id)
+        return self.storage_access.get_storage(city, article)
 
     def get_city(self, id) -> City:
         return self.city_access.get_city(id)
 
-    def update_storage(self, id, amount, operation) -> Transaction:
+    def update_storage(self, city, article, amount, operation) -> Transaction:
 
-        storage = self.storage_access.get_storage(id)
+        storage = self.storage_access.get_storage(city=city, article=article)
+        print(storage.amount)
 
         if operation == "Deposit":
             new_amount = storage.amount + amount
         elif operation == "Withdraw":
             new_amount = storage.amount - amount
 
-        print(f'New amount: {new_amount}')
+        print(f'New amount: {new_amount} and this is a "{operation}"')
         storage.amount = new_amount
+
+        storage.save()
         print(
             f'New amount on the storage: {storage.amount}')
 
         new_transaction = Transaction.objects.create(
-            storage=storage, amount=amount, operation="Deposit"
+            storage=storage, amount=amount, operation=operation
         )
+
         new_transaction.save()
         return new_transaction
 

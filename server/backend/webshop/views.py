@@ -13,11 +13,12 @@ class Storage(APIView):
         self.storage_management_service: StorageManagementService = (
             _deps['StorageManagementService']())
 
-    def get(self, request, id):
+    def get(self, request, city, article):
 
         if request.method == 'GET':
 
-            storage = self.storage_management_service.get_storage(id)
+            storage = self.storage_management_service.get_storage(
+                city, article)
 
             print("Storage: ", storage)
 
@@ -121,24 +122,25 @@ class TransactionsAll(APIView):
 
     def post(self, request):
 
-        id = request.data.get("id")
+        city = request.data.get("city")
+        article = request.data.get("article")
 
         storage = self.storage_management_service.get_storage(
-            id=id)
+            city, article)
 
         if storage is None:
             return JsonResponse("Storage not found", safe=False, status=404)
 
         else:
 
-            amount = request.data.get("amount")
+            amount = int(request.data.get("amount"))
             operation = request.data.get("operation")
 
             if operation == "Withdraw" and amount > storage.amount:
                 return JsonResponse("Not enough articles in the storage", safe=False, status=400)
 
             transaction = self.storage_management_service.update_storage(
-                id, amount, operation)
+                city, article, amount, operation)
 
             serialized_data = TransactionSerializer(transaction)
 

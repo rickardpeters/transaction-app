@@ -15,12 +15,14 @@ export const apiRequest = async(path, method, requestBody) => {
     }
 
     if (method === 'POST') {
-        const res = await fetch (`${HOST}${path}`, {
+        const res = await fetch (HOST + path, {
             method:'POST',
             headers: {
                 'Content-Type':'application/json'
             },
             body:JSON.stringify(requestBody)
-        }).then(res => res.json()).then(value => console.log("Response: ", value))
+        })
+        
+        .then(res => res.json()).then(value => console.log("Response: ", value))
 }
 }

@@ -4,6 +4,7 @@ from .city import City
 
 
 class Storage(models.Model):
+    id = models.IntegerField(primary_key=True)
     article = models.ForeignKey(
         Article, on_delete=models.CASCADE, null=True)
     amount = models.PositiveSmallIntegerField(default=None, null=False)
@@ -13,4 +14,4 @@ class Storage(models.Model):
         unique_together = ['article', 'city']
 
     def __str__(self):
-        return (self.city.name + " - " + self.article.name)
+        return (self.article.name + " - " + self.city.name + " - " + str(self.amount))

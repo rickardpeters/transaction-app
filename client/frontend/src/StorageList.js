@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiRequest } from './APIRequest';
+import { Table } from "reactstrap"
 
 function StorageList() {
   const [storages, setStorages] = useState([]);
@@ -19,13 +20,17 @@ function StorageList() {
     fetchStorage();
   }, []);
 
+
   return (
-    <div style={{display: "flex", flexDirection:"column", textAlign:"center", margin:"20px", fontFamily:"'Exo 2', sans-serif"}}>
+    <div style={{display: "flex", flexDirection:"column", textAlign:"center",
+                  margin:"20px", fontFamily:"'Exo 2', sans-serif", color:"white"}}>
       <h1>Storage List</h1>
-      <table border="1" frame="void" rules="rows" style={{background: "white", textAlign:"left", borderRadius:"1%", padding:"10px"}}>
+      <Table border="1" frame="void" rules="rows" style={{background: "white", textAlign:"left",
+                                                          borderRadius:"1%",
+                                                          border:"3px solid black", color:"black"}}>
         <thead>
           <tr>
-            <th>City</th>
+            <th scope="row">City</th>
             <th>Article</th>
             <th>Price</th>
             <th>Amount</th>
@@ -45,7 +50,7 @@ function StorageList() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }

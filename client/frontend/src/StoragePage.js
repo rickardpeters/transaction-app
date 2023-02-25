@@ -1,12 +1,19 @@
 import StorageList from "./StorageList"
 import TransactionList from "./TransactionList"
+import { Container, Row, Col } from "react-bootstrap"
 
 function StoragePage() {
     return (
-        <div style={{display: "flex", flexDirection:"row"}}>
-            <StorageList />    
-            <TransactionList />
-        </div>
+        <Container fluid="lg">
+            <Row>
+                <Col>
+                <StorageList />
+                </Col>
+                <Col>
+                <TransactionList />
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

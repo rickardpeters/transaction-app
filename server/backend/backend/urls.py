@@ -31,7 +31,7 @@ admin.site.index_title = "Välkommen till Päron AB"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('storages', StorageAll.as_view()),
-    path('storages/<str:id>', Storage.as_view()),
+    path('storages/<str:city>/<str:article>', Storage.as_view()),
 
     path('city', City.as_view()),
     path('transactions', TransactionsAll.as_view()),

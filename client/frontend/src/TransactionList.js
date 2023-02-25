@@ -1,6 +1,6 @@
-import { textAlign } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import { apiRequest } from './APIRequest';
+import { Table } from 'reactstrap';
 
 function TransactionList() {
 
@@ -9,7 +9,7 @@ function TransactionList() {
 
   useEffect(() => {
 
-    async function fetchTransactions() {
+    const fetchTransactions = async () => {
       try {
         const data = await apiRequest('transactions', 'GET');
         setTransactions(data);
@@ -23,9 +23,12 @@ function TransactionList() {
  
 
   return (
-    <div style={{display: "flex", flexDirection:"column", textAlign:"center", margin:"20px", fontFamily:"'Exo 2', sans-serif"}}>
+    <div style={{display: "flex", flexDirection:"column", textAlign:"center",
+                margin:"20px", fontFamily:"'Exo 2', sans-serif", color:"white"}}>
       <h1>Transactions</h1>
-            <table border="1" frame="void" rules="rows" style={{background: "white", textAlign:"left", borderRadius:"1%", padding:"10px"}}>
+            <Table border="1" frame="void" rules="rows" style={{background: "white", textAlign:"left",
+                                                                borderRadius:"1%", padding:"10px",
+                                                                border:"3px solid black", color:"black"}}>
             <thead>
               <tr>
                 <th>Date</th>
@@ -36,7 +39,7 @@ function TransactionList() {
             </thead>
             <tbody>
               {transactions.map((transaction) => (
-                <tr style={transaction.operation === "Withdraw"?{background:"#ed9595"}: {background:"#95edac"}}key={transaction.id} >
+                <tr style={transaction.operation === "Withdraw" ? {background:"#ed9595"}: {background:"#95edac"}} key={transaction.id} >
                   <td style={{padding:"0 15px 0 0"}}>{transaction.date}</td>
                   <td style={{padding:"0 15px 0 0"}}>
                     {transaction.storage.city === 1 ? "Cupertino" :
@@ -44,11 +47,11 @@ function TransactionList() {
                       transaction.storage.city === 3 ? "Frankfurt" : ""}
                   </td>
                   <td style={{padding:"0 15px 0 0"}}>{transaction.storage.article.name}</td>
-                  <td>{transaction.amount}</td>
+                  <td>{transaction.operation === "Withdraw" ? - transaction.amount:transaction.amount} </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
   
     </div>
   );
