@@ -1,5 +1,5 @@
-import StorageList from "./StorageList"
-import TransactionList from "./TransactionList"
+import StorageList from "../components/StorageList"
+import TransactionList from "../components/TransactionList"
 import { Container, Row, Col } from "react-bootstrap"
 
 function StoragePage() {

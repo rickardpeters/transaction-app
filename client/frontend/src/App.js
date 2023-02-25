@@ -1,8 +1,7 @@
 import React from 'react';
 
-import NavigationBar from "./NavigationBar"
+import NavigationBar from "./components/NavigationBar"
 import AppRouter from './AppRouter';
-import { Navbar, Button } from 'reactstrap';
 
 
 
@@ -13,9 +12,6 @@ const App = () => {
     <div className='App'>
       <NavigationBar />
       <AppRouter />
-     
-      
-      
     </div>
     );
   

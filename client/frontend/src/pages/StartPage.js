@@ -1,6 +1,6 @@
 import Image from "react-bootstrap/Image"
-import pearLogo from "./img/pears.png"
-import { Container, Row, Col } from "react-bootstrap"
+import pearLogo from "../img/pears.png"
+import { Container, Row} from "react-bootstrap"
 
 function StartPage(){
     return (

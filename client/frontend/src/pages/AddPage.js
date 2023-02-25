@@ -1,5 +1,5 @@
 
-import AddTransaction from "./AddTransaction"
+import AddTransaction from "../components/AddTransaction"
 
 function AddPage() {
     return(

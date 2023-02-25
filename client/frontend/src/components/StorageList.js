@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { apiRequest } from './APIRequest';
+import { apiRequest } from '../APIRequest';
 import { Table } from "reactstrap"
 
 function StorageList() {

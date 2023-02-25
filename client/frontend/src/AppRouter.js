@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import StartPage from "./StartPage";
-import AddPage from "./AddPage";
-import StoragePage from "./StoragePage";
+import StartPage from "./pages/StartPage";
+import AddPage from "./pages/AddPage";
+import StoragePage from "./pages/StoragePage";
 
 function AppRouter() {
     return (
