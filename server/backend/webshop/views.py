@@ -1,10 +1,48 @@
-from django.shortcuts import render
+
 from rest_framework.views import APIView
+from rest_framework import authtoken
 from .__init__ import serviceInjector as si
 from .service import StorageManagementService
 from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.permissions import AllowAny
+from django.core.exceptions import PermissionDenied
 from .serializers import *
-from django.http import Http404, JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout
+
+
+class Login(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+
+        username = request.data.get("username")
+        password = request.data.get("password")
+
+        if not username or not password:
+            raise AuthenticationFailed
+
+        auth = authenticate(request, username=username, password=password)
+        if auth is None:
+            raise AuthenticationFailed
+
+        login(request, auth)
+
+        data = {
+            "username": username,
+        }
+        return JsonResponse(data, safe=False, status=200)
+
+
+class Logout(APIView):
+
+    def post(self, request):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        logout(request)
+        return JsonResponse("User signed out.", safe=False, status=200)
 
 
 class Storage(APIView):
@@ -14,6 +52,9 @@ class Storage(APIView):
             _deps['StorageManagementService']())
 
     def get(self, request, city, article):
+
+        if not request.user.is_authenticated:
+            raise PermissionDenied
 
         if request.method == 'GET':
 
@@ -40,6 +81,9 @@ class StorageAll(APIView):
 
     def get(self, request):
 
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+
         all_storages = self.storage_management_service.get_all_storages()
         if all_storages is None:
             return JsonResponse("No storage found", safe=False, status=404)
@@ -49,19 +93,6 @@ class StorageAll(APIView):
         return Response("Serialization failed", status=400)
 
 
-class StorageValue(APIView):
-    @si.inject
-    def __init__(self, _deps, *args):
-        self.storage_management_service: StorageManagementService = (
-            _deps['StorageManagementService']())
-
-    def get(self, request):
-
-        if request.method == 'GET':
-
-            id = request.data.get("id")
-
-
 class City(APIView):
     @si.inject
     def __init__(self, _deps, *args):
@@ -69,6 +100,9 @@ class City(APIView):
             _deps['StorageManagementService']())
 
     def get(self, request):
+
+        if not request.user.is_authenticated:
+            raise PermissionDenied
 
         if request.method == 'GET':
 
@@ -86,24 +120,6 @@ class City(APIView):
             return Response("Serialization failed", status=400)
 
 
-class Transactions(APIView):
-    @si.inject
-    def __init__(self, _deps, *args):
-        self.storage_management_service: StorageManagementService = (
-            _deps['StorageManagementService']())
-
-        def get(self, id):
-
-            all_transactions = self.storage_management_service.get_all_transactions()
-            if all_transactions is None:
-                return JsonResponse("No transaction found", safe=False, status=404)
-            serialized_data = TransactionSerializer(
-                all_transactions, many=True)
-            if serialized_data.is_valid:
-                return JsonResponse(serialized_data.data, safe=False, status=200)
-            return Response("Serialization failed", status=400)
-
-
 class TransactionsAll(APIView):
     @si.inject
     def __init__(self, _deps, *args):
@@ -111,6 +127,11 @@ class TransactionsAll(APIView):
             _deps['StorageManagementService']())
 
     def get(self, request):
+
+        print(request.user.username)
+
+        if request.auth is None:
+            raise PermissionDenied
 
         all_transactions = self.storage_management_service.get_all_transactions()
         if all_transactions is None:
@@ -121,6 +142,9 @@ class TransactionsAll(APIView):
         return Response("Serialization failed", status=400)
 
     def post(self, request):
+
+        if not request.user.is_authenticated:
+            raise PermissionDenied
 
         city = request.data.get("city")
         article = request.data.get("article")

@@ -16,11 +16,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken import views
 from webshop.views import Storage
 from webshop.views import StorageAll
 from webshop.views import City
-from webshop.views import Transactions
 from webshop.views import TransactionsAll
+from webshop.views import Login, Logout
 
 
 admin.site.site_header = "Päron AB"
@@ -35,7 +36,11 @@ urlpatterns = [
 
     path('city', City.as_view()),
     path('transactions', TransactionsAll.as_view()),
-    path('transactions/<str:id>', Transactions.as_view()),
+
+    path('login', Login.as_view()),
+    path('logout', Logout.as_view()),
+
+    path('auth', views.obtain_auth_token)
 
 
 ]

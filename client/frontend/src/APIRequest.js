@@ -6,7 +6,9 @@ export const apiRequest = async(path, method, requestBody) => {
         const res = await fetch (HOST + path, {
             method:'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': sessionStorage.getItem("csrftoken")
+
             },
             body:JSON.stringify(requestBody)
         });
@@ -19,7 +21,8 @@ export const apiRequest = async(path, method, requestBody) => {
         const res = await fetch (HOST + path, {
             method:'POST',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem("token")
             },
             body:JSON.stringify(requestBody)
         }).then(res => res.json()).then(value => console.log("Response: ", value))

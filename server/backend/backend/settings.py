@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'webshop',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
