@@ -4,18 +4,21 @@ from .__init__ import serviceInjector as si
 from .service import StorageManagementService
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import authentication_classes
 from django.core.exceptions import PermissionDenied
 from .serializers import *
 from knox.models import AuthToken
 from knox.auth import TokenAuthentication
+from knox.views import LoginView as KnoxLoginView
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 
 
-class Login(APIView):
+class LoginView(KnoxLoginView):
 
-    permission_classes = [AllowAny]
+    permission_classes = []
+    authentication_classes = []
 
     @si.inject
     def __init__(self, _deps, *args):
@@ -53,17 +56,17 @@ class Logout(APIView):
 
 
 class Storage(APIView):
+
     @si.inject
     def __init__(self, _deps, *args):
         self.storage_management_service: StorageManagementService = (
             _deps['StorageManagementService']())
 
-    authentication_classes = (TokenAuthentication,)
-
     def get(self, request, city, article):
 
+        print(request.user)
         if not request.auth:
-            return AuthenticationFailed
+            raise PermissionDenied
 
         if request.method == 'GET':
 
@@ -83,14 +86,19 @@ class Storage(APIView):
 
 
 class StorageAll(APIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     @si.inject
     def __init__(self, _deps, *args):
         self.storage_management_service: StorageManagementService = (
             _deps['StorageManagementService']())
 
     def get(self, request):
-        ''' if not request.user.is_authenticated:
-            raise PermissionDenied '''
+
+        if not request.auth:
+            return JsonResponse("You do not have permission to do this", safe=False, status=403)
 
         all_storages = self.storage_management_service.get_all_storages()
         if all_storages is None:
@@ -129,6 +137,10 @@ class City(APIView):
 
 
 class TransactionsAll(APIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     @si.inject
     def __init__(self, _deps, *args):
         self.storage_management_service: StorageManagementService = (
@@ -136,10 +148,8 @@ class TransactionsAll(APIView):
 
     def get(self, request):
 
-        print(request.user.username)
-
-        ''' if request.auth is None:
-            raise PermissionDenied '''
+        if not request.auth:
+            return JsonResponse("You do not have permission to do this", safe=False, status=403)
 
         all_transactions = self.storage_management_service.get_all_transactions()
         if all_transactions is None:
@@ -150,8 +160,6 @@ class TransactionsAll(APIView):
         return Response("Serialization failed", status=400)
 
     def post(self, request):
-        ''' if not request.user.is_authenticated:
-            raise PermissionDenied '''
 
         city = request.data.get("city")
         article = request.data.get("article")

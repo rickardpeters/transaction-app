@@ -2,17 +2,18 @@ import Image from "react-bootstrap/Image"
 import pearLogo from "../img/pears.png"
 import { Container, Row} from "react-bootstrap"
 
-function StartPage(){
-
-    return (
+function LogoutPage(){
 
     
+
+
+    return (
     <>
     <br></br>
     <br></br>
     <Container>
         <Row>
-            <h1 style={{fontFamily: "Tilt Warp", textAlign: "center", fontSize: "65px", color:"white" }}>Welcome to the Home Page!</h1>
+            <h1 style={{fontFamily: "Tilt Warp", textAlign: "center", fontSize: "65px", color:"white" }}>You are now signed out.</h1>
         </Row>
         <br></br>
         <br></br>
@@ -24,4 +25,4 @@ function StartPage(){
     )
 }
 
-export default StartPage;
+export default LogoutPage;

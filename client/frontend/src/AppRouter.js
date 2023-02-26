@@ -5,6 +5,7 @@ import StartPage from "./pages/StartPage";
 import AddPage from "./pages/AddPage";
 import StoragePage from "./pages/StoragePage";
 import LoginPage from "./pages/LoginPage";
+import LogoutPage from "./pages/LogoutPage";
 
 function AppRouter() {
     return (
@@ -21,6 +22,9 @@ function AppRouter() {
                 } />
                 <Route path="/login" element={
                     <LoginPage />
+                } />
+                <Route path="/logout" element={
+                    <LogoutPage />
                 } />
             </Routes>
         </BrowserRouter>

@@ -21,7 +21,7 @@ from webshop.views import Storage
 from webshop.views import StorageAll
 from webshop.views import City
 from webshop.views import TransactionsAll
-from webshop.views import Login, Logout
+from webshop.views import LoginView, Logout
 
 
 admin.site.site_header = "Päron AB"
@@ -37,7 +37,7 @@ urlpatterns = [
     path('city', City.as_view()),
     path('transactions', TransactionsAll.as_view()),
 
-    path('login', Login.as_view()),
+    path('login', LoginView.as_view()),
     path('logout', Logout.as_view()),
 
 

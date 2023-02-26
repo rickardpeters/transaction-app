@@ -27,16 +27,12 @@ function LoginPage() {
     }
 
 
-    const [show, setShow] = useState(false)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate()
-    const handleShow = () => setShow(true);
-    const handleClose = () => {
-        setShow(false);
-        navigate('/')
-    }
+    
+
     
 
     const login = async () => {
@@ -65,8 +61,8 @@ function LoginPage() {
             console.log("accesstoken: " + accessToken)
             
             if (accessToken) {
-              sessionStorage.setItem("token", accessToken);
-              handleShow()
+              await sessionStorage.setItem("token", accessToken);
+              window.location.reload()
 
             } else {
               alert("Error signing in!");
@@ -79,7 +75,9 @@ function LoginPage() {
 
     return (
         <Container fluid="xs">
-        <div style={{textAlign:"center", fontFamily:"Tilt Warp", color: "white"}}>
+        {!sessionStorage.getItem("token") ? 
+        <>
+            <div style={{textAlign:"center", fontFamily:"Tilt Warp", color: "white"}}>
             <div style={{height:"100px"}}></div>
             <h1>Enter your credentials:</h1>
             <br></br>
@@ -92,17 +90,16 @@ function LoginPage() {
             </div>
             <button onClick={handleSubmit} type="submit" style={buttonStyle}>Submit</button>
         </div>
-        <Modal show={show} onHide={handleClose} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Login successful!</Modal.Title>
-                </Modal.Header>
+        </>
+        : 
+        <>
+        <div style={{textAlign:"center", fontFamily:"Tilt Warp", color: "white"}}>
+            <div style={{height:"100px"}}></div>
+            <h1>Login successful!</h1>
+            <h3>Welcome!</h3>
             
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose} centered>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+        </div>
+        </>}
         </Container>
  
     )

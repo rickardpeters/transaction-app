@@ -38,7 +38,7 @@ function TransactionList() {
               </tr>
             </thead>
             <tbody>
-              {transactions.map((transaction) => (
+              {(transactions && transactions.length) ? transactions.map((transaction) => (
                 <tr style={transaction.operation === "Withdraw" ? {background:"#ed9595"}: {background:"#95edac"}} key={transaction.id} >
                   <td style={{padding:"0 15px 0 0"}}>{transaction.date}</td>
                   <td style={{padding:"0 15px 0 0"}}>
@@ -49,7 +49,9 @@ function TransactionList() {
                   <td style={{padding:"0 15px 0 0"}}>{transaction.storage.article.name}</td>
                   <td>{transaction.operation === "Withdraw" ? - transaction.amount:transaction.amount} </td>
                 </tr>
-              ))}
+              )): <div>
+                  Log in to view transactions.
+                </div>}
             </tbody>
           </Table>
   

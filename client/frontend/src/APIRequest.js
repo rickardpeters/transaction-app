@@ -7,13 +7,13 @@ export const apiRequest = async(path, method, requestBody) => {
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + sessionStorage.getItem("token")
+                'Authorization': 'Token ' + sessionStorage.getItem("token")
 
             },
             body:JSON.stringify(requestBody)
         });
-        console.log(requestBody)
         const data = await res.json()
+        console.log("data from apiRequest 'GET': " + data.token)
         return data
     }
 
@@ -22,7 +22,7 @@ export const apiRequest = async(path, method, requestBody) => {
             method:'POST',
             headers: {
                 'Content-Type':'application/json',
-                'Authorization': 'Bearer ' + sessionStorage.getItem("token")
+                'Authorization': 'Token ' + sessionStorage.getItem('token')
             },
             body:JSON.stringify(requestBody)
         })

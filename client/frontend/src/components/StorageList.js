@@ -12,12 +12,14 @@ function StorageList() {
       try {
         const data = await apiRequest('storages', 'GET');
         setStorages(data);
+        console.log(storages)
       } catch (error) {
         console.error(error);
       }
     }
 
     fetchStorage();
+    
   }, []);
 
 
@@ -30,25 +32,27 @@ function StorageList() {
                                                           border:"3px solid black", color:"black"}}>
         <thead>
           <tr>
-            <th scope="row">City</th>
-            <th>Article</th>
+            <th scope="row">Article</th>
+            <th>City</th>
             <th>Price</th>
             <th>Amount</th>
           </tr>
         </thead>
         <tbody>
-          {storages.map((storage) => (
+          {(storages && storages.length) ? storages.map((storage) => (
             <tr key={storage.id}>
+              <td style={{padding:"0 15px 0 15px"}}>{storage.article.name}</td>
               <td style={{padding:"0 15px 0 0"}}>
                 {storage.city === 1 ? "Cupertino" :
                   storage.city === 2 ? "Norrköping" :
                   storage.city === 3 ? "Frankfurt" : ""}
               </td>
-              <td style={{padding:"0 15px 0 0"}}>{storage.article.name}</td>
               <td style={{padding:"0 15px 0 0"}}>{storage.article.price}</td>
               <td >{storage.amount}</td>
             </tr>
-          ))}
+          )): <div>
+              Log in to access storages.
+            </div>}
         </tbody>
       </Table>
     </div>

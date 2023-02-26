@@ -49,7 +49,7 @@ function AddTransaction() {
                 operation: operation
             })
             
-        } handleShow()
+        } 
         
     }
 
@@ -58,7 +58,7 @@ function AddTransaction() {
 
     const handleSubmit = async () => {
         createTransaction()
-
+        handleShow()
         
         
     }
