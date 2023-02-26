@@ -33,7 +33,7 @@ function StorageList() {
         <thead>
           <tr>
             <th scope="row">Article</th>
-            <th>City</th>
+            <th scope="row">City</th>
             <th>Price</th>
             <th>Amount</th>
           </tr>
@@ -41,7 +41,7 @@ function StorageList() {
         <tbody>
           {(storages && storages.length) ? storages.map((storage) => (
             <tr key={storage.id}>
-              <td style={{padding:"0 15px 0 15px"}}>{storage.article.name}</td>
+              <td style={{padding:"0 15px 0 5px"}}>{storage.article.name}</td>
               <td style={{padding:"0 15px 0 0"}}>
                 {storage.city === 1 ? "Cupertino" :
                   storage.city === 2 ? "Norrköping" :

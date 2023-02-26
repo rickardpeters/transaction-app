@@ -38,9 +38,9 @@ function TransactionList() {
               </tr>
             </thead>
             <tbody>
-              {(transactions && transactions.length) ? transactions.map((transaction) => (
+              {(transactions && transactions.length) ? transactions.sort((a, b) => new Date(a.date) - new Date(b.date)).map((transaction) => (
                 <tr style={transaction.operation === "Withdraw" ? {background:"#ed9595"}: {background:"#95edac"}} key={transaction.id} >
-                  <td style={{padding:"0 15px 0 0"}}>{transaction.date}</td>
+                  <td style={{padding:"0 15px 0 5px"}}>{transaction.date}</td>
                   <td style={{padding:"0 15px 0 0"}}>
                     {transaction.storage.city === 1 ? "Cupertino" :
                       transaction.storage.city === 2 ? "Norrköping" :

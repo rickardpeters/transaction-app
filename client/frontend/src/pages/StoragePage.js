@@ -6,10 +6,10 @@ function StoragePage() {
     return (
         <Container fluid="lg">
             <Row>
-                <Col>
+                <Col style={{padding:"0"}}>
                 <StorageList />
                 </Col>
-                <Col>
+                <Col style={{padding:"0"}}>
                 <TransactionList />
                 </Col>
             </Row>
