@@ -34,8 +34,7 @@ function StorageList() {
           <tr>
             <th scope="row">Article</th>
             <th scope="row">City</th>
-            <th>Price</th>
-            <th>Amount</th>
+            <th>Balance</th>
           </tr>
         </thead>
         <tbody>
@@ -47,8 +46,7 @@ function StorageList() {
                   storage.city === 2 ? "Norrköping" :
                   storage.city === 3 ? "Frankfurt" : ""}
               </td>
-              <td style={{padding:"0 15px 0 0"}}>{storage.article.price}</td>
-              <td >{storage.amount}</td>
+              <td>{storage.amount}</td>
             </tr>
           )): <div>
               Log in to access storages.

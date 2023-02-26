@@ -32,8 +32,8 @@ function TransactionList() {
             <thead>
               <tr>
                 <th>Date</th>
-                <th>City</th>
                 <th>Article</th>
+                <th>City</th>
                 <th>Amount</th>
               </tr>
             </thead>
@@ -41,12 +41,12 @@ function TransactionList() {
               {(transactions && transactions.length) ? transactions.sort((a, b) => new Date(a.date) - new Date(b.date)).map((transaction) => (
                 <tr style={transaction.operation === "Withdraw" ? {background:"#ed9595"}: {background:"#95edac"}} key={transaction.id} >
                   <td style={{padding:"0 15px 0 5px"}}>{transaction.date}</td>
+                  <td style={{padding:"0 15px 0 0"}}>{transaction.storage.article.name}</td>
                   <td style={{padding:"0 15px 0 0"}}>
                     {transaction.storage.city === 1 ? "Cupertino" :
                       transaction.storage.city === 2 ? "Norrköping" :
                       transaction.storage.city === 3 ? "Frankfurt" : ""}
                   </td>
-                  <td style={{padding:"0 15px 0 0"}}>{transaction.storage.article.name}</td>
                   <td>{transaction.operation === "Withdraw" ? - transaction.amount : transaction.amount} </td>
                 </tr>
               )).reverse(): <div>

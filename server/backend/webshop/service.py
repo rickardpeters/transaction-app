@@ -65,5 +65,8 @@ class StorageManagementService():
     def get_all_transactions(self) -> dict:
         return self.transaction_access.get_all_transactions()
 
+    def edit_transaction(self, id, new_amount, new_date) -> Transaction:
+        return self.storage_access.edit_transaction(id, new_amount, new_date)
+
     def get_user(self, user):
         return self.user_access.get_user(user)

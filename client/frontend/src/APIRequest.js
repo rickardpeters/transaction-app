@@ -1,5 +1,5 @@
-/* var HOST = 'http://127.0.0.1:8000/' */
-var HOST = 'http://192.168.1.188:8000/'
+var HOST = 'http://127.0.0.1:8000/'
+
 
 export const apiRequest = async(path, method, requestBody) => {
     if (method === 'GET') {
@@ -13,7 +13,6 @@ export const apiRequest = async(path, method, requestBody) => {
             body:JSON.stringify(requestBody)
         });
         const data = await res.json()
-        console.log("data from apiRequest 'GET': " + data.token)
         return data
     }
 
@@ -27,9 +26,7 @@ export const apiRequest = async(path, method, requestBody) => {
             body:JSON.stringify(requestBody)
         })
         if (path === 'login') {
-        console.log(sessionStorage.getItem("token"))
         const data = await res.json()
-        console.log("data from apiRequest 'POST': " + data.token)
         return data.token
         }
 }

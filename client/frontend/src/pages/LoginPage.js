@@ -30,11 +30,6 @@ function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const navigate = useNavigate()
-    
-
-    
-
     const login = async () => {
     
         if (username && password) {
@@ -52,7 +47,6 @@ function LoginPage() {
         };
 
 
-    
     const handleSubmit = async () => {
         try {
             const response = await login();
@@ -61,7 +55,7 @@ function LoginPage() {
             console.log("accesstoken: " + accessToken)
             
             if (accessToken) {
-              await sessionStorage.setItem("token", accessToken);
+              sessionStorage.setItem("token", accessToken);
               window.location.reload()
 
             } else {

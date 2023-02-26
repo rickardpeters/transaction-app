@@ -73,18 +73,18 @@ function AddTransaction() {
             <div style={{textAlign:"center", display:"flex", justifyContent:"center"}}>
                 <form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column", width:"400px", textAlign:"center"}}>
 
-                    <select style={inputStyle} onChange={e => setCity(e.target.value)}>
-                        <option value="" disabled selected>Select city...</option>
-                        <option value="1">Cupertino</option>
-                        <option value="2">Norrköping</option>
-                        <option value="3">Frankfurt</option>
-                    </select>
-
                     <select style={inputStyle} onChange={e => setArticle(e.target.value)}>
                         <option value="" disabled selected>Select article...</option>
                         <option value="P001">jTelefon</option>
                         <option value="P002">jPlatta</option>
                         <option value="P003">Päronklocka</option>
+                    </select>
+
+                    <select style={inputStyle} onChange={e => setCity(e.target.value)}>
+                        <option value="" disabled selected>Select city...</option>
+                        <option value="1">Cupertino</option>
+                        <option value="2">Norrköping</option>
+                        <option value="3">Frankfurt</option>
                     </select>
 
                     <select style={inputStyle} onChange={e => setOperation(e.target.value)}>

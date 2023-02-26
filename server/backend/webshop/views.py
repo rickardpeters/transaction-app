@@ -55,36 +55,6 @@ class Logout(APIView):
         return JsonResponse("User signed out.", safe=False, status=200)
 
 
-class Storage(APIView):
-
-    @si.inject
-    def __init__(self, _deps, *args):
-        self.storage_management_service: StorageManagementService = (
-            _deps['StorageManagementService']())
-
-    def get(self, request, city, article):
-
-        print(request.user)
-        if not request.auth:
-            raise PermissionDenied
-
-        if request.method == 'GET':
-
-            storage = self.storage_management_service.get_storage(
-                city, article)
-
-            print("Storage: ", storage)
-
-            if storage is None:
-                return JsonResponse("No storage found", safe=False, status=404)
-
-            serialized_data = StorageSerializer(storage)
-
-            if serialized_data.is_valid:
-                return JsonResponse(serialized_data.data, safe=False, status=200)
-            return Response("Serialization failed", status=400)
-
-
 class StorageAll(APIView):
 
     authentication_classes = [TokenAuthentication]
@@ -184,3 +154,19 @@ class TransactionsAll(APIView):
             serialized_data = TransactionSerializer(transaction)
 
             return JsonResponse(serialized_data.data, status=200)
+
+    def put(self, request, id):
+
+        if request.method == 'PUT':
+
+            new_amount = request.data.get("amount")
+            new_date = request.data.get("date")
+            transaction = (self.storage_management_service.edit_transaction(
+                id, new_amount, new_date))
+
+            serialized_data = TransactionSerializer(transaction)
+
+            if transaction is None:
+                JsonResponse("Transaction not found", safe=False, status=404)
+            else:
+                return JsonResponse(serialized_data.data, safe=False, status=200)

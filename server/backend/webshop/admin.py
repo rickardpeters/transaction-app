@@ -25,3 +25,7 @@ class ArticleInline(admin.StackedInline):
 
 class TransactionInline(admin.TabularInline):
     model = Transaction
+
+
+class TransactionAdmin(admin.ModelAdmin):
+    readonly_fields = ('id',)

@@ -30,8 +30,11 @@ class StorageAccess():
         try:
             Storage.objects.filter(
                 city=city, article=article).update(amount=amount)
-            storage_amount = Storage.objects.get(
-                city=city, article=article).amount
+            storage = Storage.objects.get(
+                city=city, article=article)
+
+            storage_amount = storage.amount
+            storage.save()
             return storage_amount
         except Exception:
             None
@@ -49,6 +52,16 @@ class TransactionAccess():
     def get_all_transactions(self) -> dict:
         try:
             return Transaction.objects.all()
+        except Exception:
+            return None
+
+    def edit_transaction(self, id, new_amount, new_date) -> Transaction:
+        try:
+            Transaction.objects.filter(id=id).update(
+                amount=new_amount, date=new_date)
+            transaction = Transaction.objects.get(id=id)
+            transaction.save()
+            return transaction
         except Exception:
             return None
 
