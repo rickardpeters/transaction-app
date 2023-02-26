@@ -47,9 +47,9 @@ function TransactionList() {
                       transaction.storage.city === 3 ? "Frankfurt" : ""}
                   </td>
                   <td style={{padding:"0 15px 0 0"}}>{transaction.storage.article.name}</td>
-                  <td>{transaction.operation === "Withdraw" ? - transaction.amount:transaction.amount} </td>
+                  <td>{transaction.operation === "Withdraw" ? - transaction.amount : transaction.amount} </td>
                 </tr>
-              )): <div>
+              )).reverse(): <div>
                   Log in to view transactions.
                 </div>}
             </tbody>
