@@ -4,6 +4,17 @@ from .models.storage import Storage
 from .models.article import Article
 from .models.city import City
 from .models.transaction import Transaction
+from django.contrib.auth.models import User
+
+
+@di.register(name="UserAccess")
+class UserAccess():
+
+    def get_user(self, user) -> User:
+        try:
+            return User.objects.get(username=user.username)
+        except Exception:
+            return None
 
 
 @di.register(name="StorageAccess")

@@ -5,6 +5,7 @@ from .access import StorageAccess
 from .access import ArticleAccess
 from .access import CityAccess
 from .access import TransactionAccess
+from .access import UserAccess
 
 from .models.storage import Storage
 from .models.article import Article
@@ -25,6 +26,7 @@ class StorageManagementService():
         self.city_access: CityAccess = _deps["CityAccess"]()
         self.transaction_access: TransactionAccess = _deps["TransactionAccess"](
         )
+        self.user_access: UserAccess = _deps["UserAccess"]()
 
     def get_storage(self, city, article) -> Storage:
 
@@ -62,3 +64,6 @@ class StorageManagementService():
 
     def get_all_transactions(self) -> dict:
         return self.transaction_access.get_all_transactions()
+
+    def get_user(self, user):
+        return self.user_access.get_user(user)

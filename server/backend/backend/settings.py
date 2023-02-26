@@ -42,8 +42,12 @@ INSTALLED_APPS = [
     'webshop',
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken'
+    'knox'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

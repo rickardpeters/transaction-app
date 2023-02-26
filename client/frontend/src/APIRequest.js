@@ -7,7 +7,7 @@ export const apiRequest = async(path, method, requestBody) => {
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': sessionStorage.getItem("csrftoken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("token")
 
             },
             body:JSON.stringify(requestBody)
@@ -25,6 +25,12 @@ export const apiRequest = async(path, method, requestBody) => {
                 'Authorization': 'Bearer ' + sessionStorage.getItem("token")
             },
             body:JSON.stringify(requestBody)
-        }).then(res => res.json()).then(value => console.log("Response: ", value))
+        })
+        if (path === 'login') {
+        console.log(sessionStorage.getItem("token"))
+        const data = await res.json()
+        console.log("data from apiRequest 'POST': " + data.token)
+        return data.token
+        }
 }
 }

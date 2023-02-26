@@ -40,7 +40,6 @@ urlpatterns = [
     path('login', Login.as_view()),
     path('logout', Logout.as_view()),
 
-    path('auth', views.obtain_auth_token)
 
 
 ]

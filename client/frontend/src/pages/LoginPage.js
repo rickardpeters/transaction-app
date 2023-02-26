@@ -1,0 +1,111 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { apiRequest } from "../APIRequest"
+import { Container, Modal, Button } from "react-bootstrap"
+
+
+
+function LoginPage() {
+
+    const inputStyle = {
+        height:"40px",
+        margin: "10px",
+        boxSizing: "border-box",
+        alignItems: "center"
+    }
+    
+    const buttonStyle = {
+        background: "black",
+        color: "white",
+        fontSize: "20px",
+        padding: "10px 60px",
+        borderRadius: "5px",
+        margin: "10px 0px",
+        cursor: "pointer",
+        fontFamily: "'Exo 2', sans-serif"
+    
+    }
+
+
+    const [show, setShow] = useState(false)
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const navigate = useNavigate()
+    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShow(false);
+        navigate('/')
+    }
+    
+
+    const login = async () => {
+    
+        if (username && password) {
+            try {
+              const response = await apiRequest("login", "POST", {
+                username: username,
+                password: password,
+              });
+              return response;
+            } catch (error) {
+                console.log(error)
+              throw new Error(error.response.detail);
+            }
+          }
+        };
+
+
+    
+    const handleSubmit = async () => {
+        try {
+            const response = await login();
+            console.log("response: " + response)
+            const accessToken = response;
+            console.log("accesstoken: " + accessToken)
+            
+            if (accessToken) {
+              sessionStorage.setItem("token", accessToken);
+              handleShow()
+
+            } else {
+              alert("Error signing in!");
+            }
+          } catch (error) {
+            alert("Error: " + error.message);
+          }
+        };
+
+
+    return (
+        <Container fluid="xs">
+        <div style={{textAlign:"center", fontFamily:"Tilt Warp", color: "white"}}>
+            <div style={{height:"100px"}}></div>
+            <h1>Enter your credentials:</h1>
+            <br></br>
+            <br></br>
+            <div style={{textAlign:"center", display:"flex", justifyContent:"center"}}>
+                <form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column", width:"400px", textAlign:"center"}}>
+                            <input onChange={e => setUsername(e.target.value)} placeHolder="Username..." type="text" style={inputStyle}></input>
+                            <input onChange={e => setPassword(e.target.value)} placeHolder="Password..." type="password" style={inputStyle}></input>
+                </form>
+            </div>
+            <button onClick={handleSubmit} type="submit" style={buttonStyle}>Submit</button>
+        </div>
+        <Modal show={show} onHide={handleClose} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Login successful!</Modal.Title>
+                </Modal.Header>
+            
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose} centered>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </Container>
+ 
+    )
+}
+
+export default LoginPage;

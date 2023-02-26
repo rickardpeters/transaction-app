@@ -4,6 +4,14 @@ from .models.article import Article
 from .models.storage import Storage
 from .models.city import City
 from .models.transaction import Transaction
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'username')
 
 
 class ArticleSerializer(serializers.ModelSerializer):

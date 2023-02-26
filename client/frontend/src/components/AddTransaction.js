@@ -1,7 +1,8 @@
 
 import { useState } from "react"
 import { apiRequest } from "../APIRequest"
-import { Container} from "react-bootstrap"
+import { Container, Modal, Button } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 
 
 function AddTransaction() {
@@ -25,13 +26,18 @@ function AddTransaction() {
 
     }
 
+    const [show, setShow] = useState(false)
     const [article, setArticle] = useState('');
     const [city, setCity] = useState('');
     const [amount, setAmount] = useState('');
     const [operation, setOperation] = useState('');
-
-
     
+    const navigate = useNavigate()
+    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShow(false);
+        navigate('/storage')
+    }
 
     const createTransaction = async () => {
     
@@ -42,8 +48,9 @@ function AddTransaction() {
                 amount: amount,
                 operation: operation
             })
-
-        }
+            
+        } handleShow()
+        
     }
 
     
@@ -51,7 +58,9 @@ function AddTransaction() {
 
     const handleSubmit = async () => {
         createTransaction()
-        alert("Transaction created!")
+
+        
+        
     }
 
     return(
@@ -88,6 +97,18 @@ function AddTransaction() {
             </form>
             </div>
             <button onClick={handleSubmit} type="submit" style={buttonStyle}>Submit</button>
+
+        <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Transaction added!</Modal.Title>
+        </Modal.Header>
+        
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose} centered>
+            Close
+          </Button>
+        </Modal.Footer>
+        </Modal>
         </div>
         </Container>
     )

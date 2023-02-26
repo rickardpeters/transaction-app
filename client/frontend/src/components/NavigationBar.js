@@ -8,7 +8,7 @@ export default function NavigationBar() {
     return (
 
       <Navbar style={{paddingLeft:"20px", paddingRight:"20px", fontFamily:"'Exo 2', sans-serif", fontSize:"25px"}}sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark" fluid="xs">
-      <Navbar.Brand href="/home">
+      <Navbar.Brand href="/">
         <Image style={{filter: "brightness(0) invert(1)", height:"50px", transform:"rotate(-45deg)"}} src={pearLogo}></Image>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -16,8 +16,7 @@ export default function NavigationBar() {
         <Nav className="mr-auto">
           <Nav.Link href="/add">Create Transaction</Nav.Link>
           <Nav.Link href="/storage">Inventory</Nav.Link>
-        </Nav>
-        <Nav>
+          <Nav.Link href="/login">Sign in</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
@@ -29,3 +28,5 @@ export default function NavigationBar() {
    );
 }
 
+
+/* mr-auto */
