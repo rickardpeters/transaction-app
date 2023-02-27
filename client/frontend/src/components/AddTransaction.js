@@ -41,8 +41,7 @@ function AddTransaction() {
         
         if (fieldsFilled && response !== 400) {
             navigate('/storage')
-        }
-        
+        }  
     }
 
     const createTransaction = async () => {
@@ -55,12 +54,8 @@ function AddTransaction() {
                 amount: amount,
                 operation: operation
             })   
-            setResponse(data)
-            
-        }
-
-
-        
+            setResponse(data)   
+        }  
     }
 
     const handleSubmit = async () => {

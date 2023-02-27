@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { apiRequest } from '../APIRequest';
 import { Table } from 'reactstrap';
 
+
 function TransactionList() {
 
   const [transactions, setTransactions] = useState([]);
-
 
   useEffect(() => {
 
@@ -20,9 +20,12 @@ function TransactionList() {
     fetchTransactions();
   }, []);
 
- 
+
+    
+
 
   return (
+
     <div style={{display: "flex", flexDirection:"column", textAlign:"center",
                 margin:"20px", fontFamily:"'Exo 2', sans-serif", color:"white"}}>
       <h1>Transactions</h1>
@@ -39,7 +42,8 @@ function TransactionList() {
             </thead>
             <tbody>
               {(transactions && transactions.length) ? transactions.sort((a, b) => new Date(a.date) - new Date(b.date)).map((transaction) => (
-                <tr style={transaction.operation === "Withdraw" ? {background:"#ed9595"}: {background:"#95edac"}} key={transaction.id} >
+                <tr style={transaction.operation === "Withdraw" ? {background:"#ed9595"}: {background:"#95edac"}} key={transaction.id}>
+                  
                   <td style={{padding:"0 15px 0 5px"}}>{transaction.date}</td>
                   <td style={{padding:"0 15px 0 0"}}>{transaction.storage.article.name}</td>
                   <td style={{padding:"0 15px 0 0"}}>

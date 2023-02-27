@@ -2,6 +2,7 @@ var HOST = 'http://127.0.0.1:8000/'
 
 
 export const apiRequest = async(path, method, requestBody) => {
+    
     if (method === 'GET') {
         const res = await fetch (HOST + path, {
             method:'GET',
@@ -34,5 +35,6 @@ export const apiRequest = async(path, method, requestBody) => {
         }
         const data = await res.json()
         return data
-}
+    }
+
 }
