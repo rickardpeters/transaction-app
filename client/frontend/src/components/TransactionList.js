@@ -49,9 +49,9 @@ function TransactionList() {
                   </td>
                   <td>{transaction.operation === "Withdraw" ? - transaction.amount : transaction.amount} </td>
                 </tr>
-              )).reverse(): <div>
-                  Log in to view transactions.
-                </div>}
+              )).reverse(): <tr>
+              Log in to view transactions.
+              </tr>}
             </tbody>
           </Table>
   

@@ -12,7 +12,7 @@ function StartPage(){
     <br></br>
     <Container>
         <Row>
-            <h1 style={{fontFamily: "Tilt Warp", textAlign: "center", fontSize: "65px", color:"white" }}>Welcome to the Home Page!</h1>
+            <h1 style={{fontFamily: "Tilt Warp", textAlign: "center", fontSize: "65px", color:"white" }}>Welcome to Päron AB!</h1>
         </Row>
         <br></br>
         <br></br>

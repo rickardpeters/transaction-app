@@ -23,7 +23,9 @@ export default function NavigationBar() {
 
     return (
 
-      <Navbar style={{margin:"0", paddingLeft:"20px", paddingRight:"20px", fontFamily:"'Exo 2', sans-serif", fontSize:"25px"}}sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark" fluid="xs">
+      <Navbar style={{margin:"0", paddingLeft:"20px", paddingRight:"20px",
+                      fontFamily:"'Exo 2', sans-serif", fontSize:"25px"}}
+                      sticky="top" collapseOnSelect expand="sm" bg="dark" variant="dark" fluid="xs">
       <Navbar.Brand href="/">
         <Image style={{filter: "brightness(0) invert(1)", height:"50px", transform:"rotate(-45deg)"}} src={pearLogo}></Image>
       </Navbar.Brand>

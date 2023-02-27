@@ -1,7 +1,6 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { apiRequest } from "../APIRequest"
-import { Container, Modal, Button } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 
 
 

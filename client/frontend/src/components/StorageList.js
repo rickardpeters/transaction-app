@@ -12,7 +12,6 @@ function StorageList() {
       try {
         const data = await apiRequest('storages', 'GET');
         setStorages(data);
-        console.log(storages)
       } catch (error) {
         console.error(error);
       }
@@ -34,7 +33,7 @@ function StorageList() {
           <tr>
             <th scope="row">Article</th>
             <th scope="row">City</th>
-            <th>Balance</th>
+            <th scope="row">Balance</th>
           </tr>
         </thead>
         <tbody>
@@ -42,15 +41,14 @@ function StorageList() {
             <tr key={storage.id}>
               <td style={{padding:"0 15px 0 5px"}}>{storage.article.name}</td>
               <td style={{padding:"0 15px 0 0"}}>
-                {storage.city === 1 ? "Cupertino" :
-                  storage.city === 2 ? "Norrköping" :
-                  storage.city === 3 ? "Frankfurt" : ""}
+                {storage.city === 1 ? "Cupertino":
+                  storage.city === 2 ? "Norrköping":
+                  storage.city === 3 ? "Frankfurt": null}
               </td>
               <td>{storage.amount}</td>
             </tr>
-          )): <div>
-              Log in to access storages.
-            </div>}
+          )): <tr>Log in to access storages.</tr>}
+
         </tbody>
       </Table>
     </div>

@@ -53,13 +53,9 @@ function AddTransaction() {
         
     }
 
-    
-    
-
     const handleSubmit = async () => {
         createTransaction()
         handleShow()
-        
         
     }
 

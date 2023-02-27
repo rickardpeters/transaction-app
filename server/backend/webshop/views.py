@@ -170,3 +170,17 @@ class TransactionsAll(APIView):
                 JsonResponse("Transaction not found", safe=False, status=404)
             else:
                 return JsonResponse(serialized_data.data, safe=False, status=200)
+
+    def delete(self, request, id):
+
+        transaction = self.storage_management_service.get_transaction(id)
+
+        if transaction is None:
+            JsonResponse("Transaction not found", safe=False, status=404)
+
+        deleted_transaction = self.storage_management_service.delete_transaction(
+            id)
+
+        if deleted_transaction is None:
+            return JsonResponse("Error deleting transaction", safe=False, status=400)
+        return JsonResponse(safe=False, status=204)

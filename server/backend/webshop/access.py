@@ -55,6 +55,12 @@ class TransactionAccess():
         except Exception:
             return None
 
+    def get_transaction(self, id) -> Transaction:
+        try:
+            return Transaction.objects.get(id=id)
+        except Exception:
+            return None
+
     def edit_transaction(self, id, new_amount, new_date) -> Transaction:
         try:
             Transaction.objects.filter(id=id).update(
@@ -62,6 +68,19 @@ class TransactionAccess():
             transaction = Transaction.objects.get(id=id)
             transaction.save()
             return transaction
+        except Exception:
+            return None
+
+    def delete_transaction(self, id):
+        try:
+            transaction = Transaction.objects.get(id=id)
+            storage = transaction.storage
+            print("före: " + str(storage.amount))
+            new_amount = storage.amount - transaction.amount
+            StorageAccess.set_storage(
+                storage.city, storage.article, new_amount)
+            print("efter: " + str(storage.amount))
+            return transaction.delete()
         except Exception:
             return None
 
