@@ -17,6 +17,8 @@ from django.contrib.auth import authenticate, login, logout
 
 class LoginView(KnoxLoginView):
 
+    ## Handles login ##
+
     permission_classes = []
     authentication_classes = []
 
@@ -57,6 +59,8 @@ class Logout(APIView):
 
 class StorageAll(APIView):
 
+    ## Handles all the storage-based views ##
+
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -80,6 +84,9 @@ class StorageAll(APIView):
 
 
 class City(APIView):
+
+    ## Handles all the city-based views  ##
+
     @si.inject
     def __init__(self, _deps, *args):
         self.storage_management_service: StorageManagementService = (
@@ -107,6 +114,8 @@ class City(APIView):
 
 
 class TransactionsAll(APIView):
+
+    ## Handles all the transaction-based views ##
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -157,6 +166,8 @@ class TransactionsAll(APIView):
 
     def put(self, request, id):
 
+        ## TODO ##
+
         if request.method == 'PUT':
 
             new_amount = request.data.get("amount")
@@ -172,6 +183,8 @@ class TransactionsAll(APIView):
                 return JsonResponse(serialized_data.data, safe=False, status=200)
 
     def delete(self, request, id):
+
+        ## TODO ##
 
         transaction = self.storage_management_service.get_transaction(id)
 
