@@ -81,7 +81,7 @@ function LoginPage() {
                             <input onChange={e => setPassword(e.target.value)} placeHolder="Password..." type="password" style={inputStyle}></input>
                 </form>
             </div>
-            <button onClick={handleSubmit} type="submit" style={buttonStyle}>Submit</button>
+            <button onClick={handleSubmit} type="submit" style={buttonStyle}>Sign in</button>
         </div>
         </>
         : 

@@ -26,30 +26,40 @@ function AddTransaction() {
 
     }
 
+    const [response, setResponse] = useState('')
     const [show, setShow] = useState(false)
     const [article, setArticle] = useState('');
     const [city, setCity] = useState('');
     const [amount, setAmount] = useState('');
     const [operation, setOperation] = useState('');
     
+    const [fieldsFilled, setFieldsFilled] = useState(false)
     const navigate = useNavigate()
     const handleShow = () => setShow(true);
     const handleClose = () => {
         setShow(false);
-        navigate('/storage')
+        
+        if (fieldsFilled && response !== 400) {
+            navigate('/storage')
+        }
+        
     }
 
     const createTransaction = async () => {
     
         if (city && article && amount && operation) {
-            return apiRequest("transactions", "POST", {
+            setFieldsFilled(true);
+            const data = await apiRequest("transactions", "POST", {
                 city: city,
                 article: article,
                 amount: amount,
                 operation: operation
-            })
+            })   
+            setResponse(data)
             
-        } 
+        }
+
+
         
     }
 
@@ -96,7 +106,10 @@ function AddTransaction() {
 
         <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Transaction added!</Modal.Title>
+            <Modal.Title>
+            {!fieldsFilled ? "All fields not filled out. Try again!":
+            response === 400 ? "Not enough articles in storage.": "Transaction added!"}
+            </Modal.Title>
         </Modal.Header>
         
         <Modal.Footer>

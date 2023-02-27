@@ -29,5 +29,10 @@ export const apiRequest = async(path, method, requestBody) => {
         const data = await res.json()
         return data.token
         }
+        if (res.status !== 200){
+            return res.status
+        }
+        const data = await res.json()
+        return data
 }
 }
