@@ -9,8 +9,9 @@ The goal was to make a good looking UI without making it too complicated. I also
 
 There are certaintly a lot to be done about the code, and maybe in the future I might come back to this project!
 
-![Screenshot](Skärmbild_20230227_212331.png)
+![Screenshot](Skärmbild_20230227_212406.png)
 
 ![Screenshot](Skärmbild_20230227_212331.png)
 
 
+Skärmbild_20230227_212406.png
